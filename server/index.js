@@ -50,7 +50,7 @@ app.get("/v1data", async function (req, res) {
         const [iceCoreDe2,] = await connection.execute('select * from icecorede2')
         const [iceCoreDss,] = await connection.execute('select * from icecoredss')
         const [vostokIce,] = await connection.execute('select * from vostokicecore')
-        const [IceCoreYears,] = await connection.execute('select * from icecore800K')
+        const [IceCoreYears,] = await connection.execute('select * from icecore800k')
         const [TwoMillionTemperature,] = await connection.execute('select * from 2myeartemperature')
         const [TwoMillionCo2,] = await connection.execute('select * from 2myearco2')
         const [V10Co2,] = await connection.execute('select * from humanrvolution7co2')
