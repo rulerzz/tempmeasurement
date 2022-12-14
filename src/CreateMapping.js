@@ -55,7 +55,7 @@ const CreateMapping = () => {
             layout: data.layout
         }
 
-        axios.post("http://localhost:3001/generatemapping", sendData)
+        axios.post("http://localhost:3001/node/generatemapping", sendData)
             .then((result) => {
                     alert(result.data.message);
                     navigate("/dashboard");

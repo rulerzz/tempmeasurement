@@ -21,7 +21,7 @@ const Login = (props) => {
             password: data.password
         }
 
-        axios.post("http://localhost:3001/login", sendData)
+        axios.post("http://localhost:3001/node/login", sendData)
             .then((result) => {
                     alert(result.data.message);
                     localStorage.setItem('token', result.data.token);
