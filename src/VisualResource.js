@@ -9,8 +9,8 @@ import IceCoreKGraph from './IceCore800K';
 import TwoMillionYearsGraphdemo from './TwoMillionYears';
 import { Link } from 'react-router-dom';
 import DoughnutChartGraph from './DoughnutChart';
-const URL = 'http://34.131.180.243/node/v1data'
-const URL2 = 'http://34.131.180.243/node/v2data'
+const URL = 'http://34.131.205.106/node/v1data'
+const URL2 = 'http://34.131.205.106/node/v2data'
 const VisualResource = () => {
     const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const VisualResource = () => {
     }, []);
 
     const loaddata = () => {
-        axios.get("http://34.131.180.243/node/getmapping?id=" + id)
+        axios.get("http://34.131.205.106/node/getmapping?id=" + id)
             .then((result) => {
                 setData({ ...data, list: result.data.data[0], vlist: JSON.parse(result.data.data[0].visualisations) })
                 axios.get(URL)
