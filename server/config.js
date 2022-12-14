@@ -2,8 +2,8 @@
 const config = {
     db: {
         host: 'localhost',
-        user: 'root',
-        password: '',
+        user: 'phpmyadmin',
+        password: 'root',
         database: 'weather'
     }
 }
