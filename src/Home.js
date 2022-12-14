@@ -7,7 +7,7 @@ import IceCoreKGraph from './IceCore800K';
 import TwoMillionYearsGraphdemo from './TwoMillionYears';
 import { Link } from 'react-router-dom';
 
-const URL = 'http://34.131.205.106/node/v1data'
+const URL = 'http://34.131.205.106:3001/v1data'
 
 
 const Home=()=>{

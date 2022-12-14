@@ -15,20 +15,20 @@ const Dashboard = (props) => {
         loaddata();
     }, []);
     const loaddata = () => {
-        axios.get("http://34.131.205.106/node/mappings?user="+localStorage.getItem("userid"))
+        axios.get("http://34.131.205.106:3001/mappings?user="+localStorage.getItem("userid"))
         .then((result) => {
             setData({ ...data, visualisations : result.data.data })
         }, (err) =>  { alert(err.response.data.message)})
     }
     const deleteFunc = (e) => {
-        axios.get("http://34.131.205.106/node/deletemapping?id=" + e.target.value)
+        axios.get("http://34.131.205.106:3001/deletemapping?id=" + e.target.value)
         .then((result) => {
             alert("Delete successful")
             loaddata();
         }, (err) =>  { alert(err.response.data.message)})
     }
     const deleteuser = (e) => {
-        axios.get("http://34.131.205.106/node/deleteuser?id=" + localStorage.getItem("userid"))
+        axios.get("http://34.131.205.106:3001/deleteuser?id=" + localStorage.getItem("userid"))
         .then((result) => {
             alert("Delete successful")
             localStorage.clear();

@@ -26,7 +26,7 @@ const Signup = (props) => {
 
         }
 
-        axios.post("http://34.131.205.106/node/signUp", sendData)
+        axios.post("http://34.131.205.106:3001/signUp", sendData)
             .then((result) => {
                 if (result.data.message === 'User created successfully') {
                     alert(result.data.message);
