@@ -1,9 +1,9 @@
 const connect = {
     db: {
-        host: 'http://34.131.180.243',
+        host: 'localhost:3306',
         user: 'phpmyadmin',
         password: 'root',
-        database: 'signUp'
+        database: 'phpmyadmin'
     }
 }
 
