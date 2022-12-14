@@ -291,7 +291,7 @@ const VisualResource = () => {
                         }
                         {el === "3,4,10" &&
                             <div>
-                                <Co2MonthGraphdemo co2data1={co2Month} co2data2={co2Annual} co2data3={iceCoreDe} co2data4={iceCoreDe2} co2data5={iceCoreDss} />
+                                <Co2MonthGraphdemo co2data1={co2Month} co2data2={co2Annual} co2data3={iceCoreDe} co2data4={iceCoreDe2} co2data5={iceCoreDss} co2data6={V4Co2} />
                                 <br></br>
                                 <h6>Visualisation 3:</h6>
                                 <p>
@@ -381,7 +381,7 @@ const VisualResource = () => {
                         }
                         {el === "7,10" &&
                             <div>
-                                <TwoMillionYearsGraphdemo v7data1={TwoMillionTemperature} v7data2={TwoMillionCo2} />
+                                <TwoMillionYearsGraphdemo v7data1={TwoMillionTemperature} v7data2={TwoMillionCo2} v7data3={V10Co2} />
                                 <div id='Vis4'>
                                     <h6>Visualisation7:</h6>
                                     <p> we created a multi-axis line chart, where we plotted the temperature record from the available 2m year period in combination with the available co2 measurements from the 800k year period. The horizontal axis represents the time in years, and the right vertical axis represents the change in temperature and the left vertical axis is showing the change in the Co2 ppm axis. The multi-line chart graph displays the data in two different colors, where cyan color is showing the temperature and the red color is showing C02.
