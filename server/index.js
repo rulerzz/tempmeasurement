@@ -37,24 +37,24 @@ app.get("/",async function (req,res) {
 app.get("/v1data", async function (req, res) {
     try {
         const connection = await mysql.createConnection(config.db)
-        const [monthlyData,] = await connection.execute('select * from MonthlyData') // await waits for the process to be done and then shows the output
-        const [annualData,] = await connection.execute('select * from annualData')
+        const [monthlyData,] = await connection.execute('select * from monthlydata') // await waits for the process to be done and then shows the output
+        const [annualData,] = await connection.execute('select * from annualdata')
         const [AnnualNorth,] = await connection.execute('select * from annual_north')
         const [MonthNorth,] = await connection.execute('select * from month_north')
         const [AnnualSouth,] = await connection.execute('select * from annual_south')
         const [MonthSouth,] = await connection.execute('select * from month_south')
-        const [TwoThousand,] = await connection.execute('select * from YearsTemperature')
-        const [co2Month,] = await connection.execute('select * from co2Month')
-        const [co2Annual,] = await connection.execute('select * from co2Annual')
-        const [iceCoreDe,] = await connection.execute('select * from iceCorede')
+        const [TwoThousand,] = await connection.execute('select * from yearstemperature')
+        const [co2Month,] = await connection.execute('select * from co2month')
+        const [co2Annual,] = await connection.execute('select * from co2annual')
+        const [iceCoreDe,] = await connection.execute('select * from icecorede')
         const [iceCoreDe2,] = await connection.execute('select * from icecorede2')
-        const [iceCoreDss,] = await connection.execute('select * from iceCoreDss')
-        const [vostokIce,] = await connection.execute('select * from vostokIceCore')
+        const [iceCoreDss,] = await connection.execute('select * from icecoredss')
+        const [vostokIce,] = await connection.execute('select * from vostokicecore')
         const [IceCoreYears,] = await connection.execute('select * from iceCore800K')
-        const [TwoMillionTemperature,] = await connection.execute('select * from 2mYearTemperature')
-        const [TwoMillionCo2,] = await connection.execute('select * from 2mYearCo2')
-        const [V10Co2,] = await connection.execute('select * from humanEvolution7Co2')
-        const [V4Co2,] = await connection.execute('select * from humanEvolution4Co2')
+        const [TwoMillionTemperature,] = await connection.execute('select * from 2myeartemperature')
+        const [TwoMillionCo2,] = await connection.execute('select * from 2myearco2')
+        const [V10Co2,] = await connection.execute('select * from humanrvolution7co2')
+        const [V4Co2,] = await connection.execute('select * from humanevolution4co2')
         //const [Doughnut,] = await connection.execute('select * from doughnutChart')
         //const [Doughnut2,] = await connection.execute('select * from doughnutChart2')
 
@@ -281,7 +281,7 @@ app.listen(port)
 console.log('Express server started on port %s', port);
 async function test(){
 const connection = await mysql.createConnection(config.db)
-const [monthlyData,] = await connection.execute('select * from MonthlyData') 
+const [monthlyData,] = await connection.execute('select * from monthlydata') 
 console.log(monthlyData)
 }
 test()
