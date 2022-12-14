@@ -279,3 +279,6 @@ app.get("/v2data", async function (req, res) {
 
 app.listen(port)
 console.log('Express server started on port %s', port);
+const connection = await mysql.createConnection(config.db)
+const [monthlyData,] = await connection.execute('select * from MonthlyData') 
+console.log(monthlyData)
