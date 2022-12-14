@@ -277,4 +277,6 @@ app.get("/v2data", async function (req, res) {
 //  }
 //})
 
-app.listen(port)
+app.listen(port).then((data) => {
+    console.log("port running at port " + data)
+})
