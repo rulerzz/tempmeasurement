@@ -51,7 +51,7 @@ const Dashboard = (props) => {
                                             Create resource
                                         </Link>
                                     </div>
-                                    <div className="ms-3 div-5 ">
+                                    <div className="ms-3 div-5 ml-2">
                                         <h5>{data.firstname} {data.lastname}</h5>
                                         <p>{data.email}</p>
                                         
@@ -73,7 +73,7 @@ const Dashboard = (props) => {
                                         <p className="lead fw-normal mb-0">Recent Generated Links</p>
                                     </div>
                                     <div className="row g-2">
-                                        <table className="table">
+                                        <table className="table table-responsive">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">#</th>

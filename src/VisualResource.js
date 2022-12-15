@@ -83,7 +83,7 @@ const VisualResource = () => {
     return (<div className="container-fluid main mt-5">
         {data.list.layout === 'a' && <div className="row">
             {data.vlist.map((el) => (
-                <div className="col-6">
+                <div className="col-md-6 col-sm-12">
                     {el === "1,2" &&
                         <div>
                             <MixChartGraph data1={annualData} data2={monthlyData} data3={AnnualNorth} data4={MonthNorth} data5={AnnualSouth} data6={MonthSouth} data7={TwoThousand} />
@@ -247,7 +247,7 @@ const VisualResource = () => {
         {
             data.list.layout === 'b' && <div className="row">
                 {data.vlist.map((el) => (
-                    <div className="col-3">
+                    <div className="col-lg-3 col-md-4 col-sm-12">
                         {el === "1,2" &&
                             <div>
                                 <MixChartGraph data1={annualData} data2={monthlyData} data3={AnnualNorth} data4={MonthNorth} data5={AnnualSouth} data6={MonthSouth} data7={TwoThousand} />
