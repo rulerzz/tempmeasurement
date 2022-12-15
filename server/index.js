@@ -6,7 +6,6 @@ const express = require('express')
 const cors = require('cors')
 const mysql = require('mysql2/promise')
 const config = require('./config')
-const connect = require('./connect')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const tokensecret = "secret";
@@ -17,11 +16,12 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+let connection;
 const port = 3001 //server port which renders data from database
 /*
 app.get("/",async function (req,res) { 
     try { 
-        const connection = await mysql.createConnection(config.db)
+        
         const [result,] = await connection.execute('select * from annualData')
         if (!result) result=[] 
         res.status(200).json(result)
@@ -36,7 +36,7 @@ app.get("/",async function (req,res) {
 
 app.get("/v1data", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(config.db)
+
         const [monthlyData,] = await connection.execute('select * from monthlydata') // await waits for the process to be done and then shows the output
         const [annualData,] = await connection.execute('select * from annualdata')
         const [AnnualNorth,] = await connection.execute('select * from annual_north')
@@ -116,17 +116,17 @@ app.post("/signUp", async function (req, res) {
         if (!(req.body.email && req.body.password && req.body.first_name && req.body.last_name)) {
             res.status(400).send("Please enter all required fields");
         }
-        const connection = await mysql.createConnection(connect.db)
+
         const [check, fields] = await connection.execute('select * from user where email="' + req.body.email + '"')
         if (check.length === 0) {
             // no user create
-            bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+            bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
                 // Store hash in your password DB.
                 connection.execute('insert into user (firstname, lastname, email, password) values ("' + req.body.first_name + '", "' + req.body.last_name + '", "' + req.body.email + '", "' + hash + '")').then((data) => {
                     res.json({ message: "User created successfully" });
                 })
             });
-            
+
         }
         else
             res.status(500).json({ message: "User with this email already exists" });
@@ -136,7 +136,7 @@ app.post("/signUp", async function (req, res) {
 })
 app.post("/generatemapping", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(connect.db)
+
         connection.execute(`insert into url_mapping (visualisations, user, layout, description) values (?, "` + req.body.user + `", "` + req.body.layout + `", "` + req.body.description + `")`, [req.body.resource]).then((data) => {
             res.json({ message: "Created resource page successfully" });
         })
@@ -147,9 +147,9 @@ app.post("/generatemapping", async function (req, res) {
 })
 app.get("/mappings", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(connect.db)
+
         connection.execute(`select a.id, a.visualisations, a.layout, a.description, CONCAT(u.firstname, " ", u.lastname) as fullname from url_mapping a left join user u on a.user = u.id where a.user ="` + req.query.user + `"`).then((data) => {
-            res.json({ data : data[0] });
+            res.json({ data: data[0] });
         })
     } catch (err) {
         console.log(err)
@@ -158,9 +158,9 @@ app.get("/mappings", async function (req, res) {
 })
 app.get("/getmapping", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(connect.db)
+
         connection.execute(`select a.id, a.visualisations, a.layout, a.description, CONCAT(u.firstname, " ", u.lastname) as fullname from url_mapping a left join user u on a.user = u.id where a.id ="` + req.query.id + `"`).then((data) => {
-            res.json({ data : data[0] });
+            res.json({ data: data[0] });
         })
     } catch (err) {
         console.log(err)
@@ -169,7 +169,7 @@ app.get("/getmapping", async function (req, res) {
 })
 app.get("/deletemapping", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(connect.db)
+
         connection.execute(`delete from url_mapping where id ="` + req.query.id + `"`).then((data) => {
             res.json({ message: "success" });
         })
@@ -180,7 +180,7 @@ app.get("/deletemapping", async function (req, res) {
 })
 app.get("/deleteuser", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(connect.db)
+
         connection.execute(`delete from user where id ="` + req.query.id + `"`).then((data) => {
             res.json({ message: "success" });
         })
@@ -191,26 +191,26 @@ app.get("/deleteuser", async function (req, res) {
 })
 app.post("/login", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(connect.db)
+
         const [user,] = await connection.execute('select * from user where email="' + req.body.email + '"')
         if (user.length === 0) {
             res.status(500).json({
                 message: "User does not exist!"
             });
         }
-        else{
+        else {
             const [urlmappings,] = await connection.execute('select a.visualisations, a.layout, a.id as visualisationid, CONCAT(u.firstname, " ", u.lastname) as fullname, u.id as userid from url_mapping a left join user u on a.user = u.id where a.user="' + user[0].id + '" ')
-            bcrypt.compare(req.body.password, user[0].password, function(err, result) {
-                if(result){
-                        // Create token
+            bcrypt.compare(req.body.password, user[0].password, function (err, result) {
+                if (result) {
+                    // Create token
                     const token = jwt.sign(
-                        { id: user[0].id, email : req.body.email },
+                        { id: user[0].id, email: req.body.email },
                         tokensecret,
                         {
-                        expiresIn: "2h",
+                            expiresIn: "2h",
                         }
                     );
-                    
+
                     res.json({
                         token: token,
                         firstname: user[0].firstname,
@@ -221,7 +221,7 @@ app.post("/login", async function (req, res) {
                         message: "success"
                     });
                 }
-                else{
+                else {
                     res.status(500).json({
                         message: "User credentials do not match!"
                     });
@@ -235,14 +235,14 @@ app.post("/login", async function (req, res) {
 })
 app.get("/v2data", async function (req, res) {
     try {
-        const connection = await mysql.createConnection(config.db)
+
         const [Doughnut,] = await connection.execute('select * from doughnutchart')
         const [Doughnut2,] = await connection.execute('select * from doughnutchart2')
         const [Doughnut3,] = await connection.execute('select * from doughnutchart3')
-        if (!Doughnut) Doughnut=[]  
-        if (!Doughnut2) Doughnut2=[] 
-        if (!Doughnut3) Doughnut3=[] 
-        res.json({ 
+        if (!Doughnut) Doughnut = []
+        if (!Doughnut2) Doughnut2 = []
+        if (!Doughnut3) Doughnut3 = []
+        res.json({
             Doughnut: Doughnut,
             Doughnut2: Doughnut2,
             Doughnut3: Doughnut3
@@ -255,7 +255,7 @@ app.get("/v2data", async function (req, res) {
 
 /*app.get("/v2data",async function (req,res) {
     try { 
-        const connection = await mysql.createConnection(config.db)
+        
         const [signUp,] = await connection.execute('select * from react-login') // await waits for the process to be done and then shows the output
        
         if (!signUp) signUp=[] 
@@ -279,9 +279,10 @@ app.get("/v2data", async function (req, res) {
 
 app.listen(port)
 console.log('Express server started on port %s', port);
-async function test(){
-const connection = await mysql.createConnection(config.db)
-const [monthlyData,] = await connection.execute('select * from monthlydata') 
-console.log(monthlyData)
+
+async function establishconnection() {
+    connection = await mysql.createConnection(config.db)
+    console.log("connected to database")
 }
-test()
+
+establishconnection()
