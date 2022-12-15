@@ -137,9 +137,11 @@ export default function TwoMillionYearsGraphdemo(props) {
   };
 
   return (
-    <div style={{ width: "80%" }}>
+    <div className="chart-top">
+    <div className="chart-container">
       <h1>Visualization 7 & 10</h1>
       <Line options={options} data={data} />
+    </div>
     </div>
   );
 }

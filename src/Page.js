@@ -25,12 +25,14 @@ const Page =()=>{
         }, [])
 
           return(
-              <div>
+            <div className="chart-top">
+            <div className="chart-container">
                   <h1> Visualizations:(Temperature and Co2 impact over time)</h1> 
                   <DoughnutChartGraph doughnutData = {DoughnutData} />
           
         
           <Link to = "/"><button>Go for Previous visualizations</button> </Link>
+          </div>
           </div>
     )
 }

@@ -125,9 +125,11 @@ export default function Co2MonthGraphdemo(props) {
   };
 
   return (
-    <div style={{ width: "80%" }}>
+    <div className="chart-top">
+    <div className="chart-container">
       <h1>Visualization 3 & 4 & 10 </h1>
       <Line options={options} data={data} />
+    </div>
     </div>
   );
 }
